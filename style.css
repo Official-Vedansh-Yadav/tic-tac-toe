@@ -91,6 +91,14 @@ nav ul{
     border-bottom: 0;
 }
 
+.winning-line{
+    background-color: blueviolet;
+    height: 3px;
+    position: absolute;
+    width: 0;
+    transition: width 1s ease-in-out;
+}
+
 /* Media Queries for the responsiveness of the website */
 @media screen and (max-width: 700px){
     .gameContainer{
@@ -102,6 +110,9 @@ nav ul{
         margin-top: 20px;
         grid-template-rows: repeat(3, 20vw);
         grid-template-columns: repeat(3, 20vw);
+    }
+    .winning-line{
+        display: none;
     }
 }
 
