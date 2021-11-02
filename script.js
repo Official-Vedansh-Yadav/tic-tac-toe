@@ -22,24 +22,27 @@ const changeturn = () => {
 const checkwin = () => {
     let boxtexts = document.getElementsByClassName("boxtext");
     let wins = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
+        [0, 1, 2, 5, 5, 0],
+        [3, 4, 5, 5, 15, 0],
+        [6, 7, 8, 5, 25, 0],
+        [0, 3, 6, -5, 15, 90],
+        [1, 4, 7, 5, 15, 90],
+        [2, 5, 8, 15, 15, 90],
+        [0, 4, 8, 5, 15, 44],
+        [2, 4, 6, 5, 15, -44]
     ];
 
     // Changing the data of info div if anyone won the match
-    wins.forEach( e =>{
-        if((boxtexts[e[0]].innerText === boxtexts[e[1]].innerText) && (boxtexts[e[2]].innerText === boxtexts[e[1]].innerText) && (boxtexts[e[0]].innerText !== "")){
+    wins.forEach(e => {
+        if ((boxtexts[e[0]].innerText === boxtexts[e[1]].innerText) && (boxtexts[e[2]].innerText === boxtexts[e[1]].innerText) && (boxtexts[e[0]].innerText !== "")) {
             turn = changeturn();
             document.querySelector('.info').innerText = turn + " won";
             // showing the gif when gameover
             document.querySelector(".imgbox").querySelector('img').style.width = "200px";
             gameoverAudio.play();
+            // showing a line on winning
+            document.getElementsByClassName('winning-line')[0].style.width = "20vw";
+            document.getElementsByClassName('winning-line')[0].style.transform = `translate(${e[3]}vw,${e[4]}vw) rotate(${e[5]}deg)`;
         }
     })
 }
@@ -63,13 +66,14 @@ Array.from(boxes).forEach(element => {
 
 // Add onclick Listner on the reset button
 let reset = document.getElementById("reset");
-reset.addEventListener('click', ()=>{
+reset.addEventListener('click', () => {
     let boxtexts = document.querySelectorAll('.boxtext');
-    Array.from(boxtexts).forEach( element =>{
+    Array.from(boxtexts).forEach(element => {
         element.innerText = "";
     })
 
     document.querySelector('.imgbox').querySelector('img').style.width = '0px';
     turn = "X";
     document.querySelector('.info').innerText = "Turn for " + turn;
+    document.getElementsByClassName('winning-line')[0].style.width = "0";
 })
